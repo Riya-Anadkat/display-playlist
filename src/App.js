@@ -6,7 +6,7 @@ let defaultStyle = {
 };
 let fakeServerData = {
   user: {
-    name: 'Riya Anadkat',
+    name: 'Riya',
     playlists: [
       {
         name: 'My favorites',
