@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 let defaultStyle = {
-  color: '#fff'
+  color: '#4d0025'
 };
 let fakeServerData = {
   user: {
-    name: 'Riya',
+    name: 'Riya Anadkat',
     playlists: [
       {
         name: 'My favorites',
@@ -123,7 +123,7 @@ class App extends Component {
         {this.state.serverData.user ?
         <div>
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-            {this.state.serverData.user.name}'s Playlists
+            {this.state.serverData.user.name}'s Playlist
           </h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
