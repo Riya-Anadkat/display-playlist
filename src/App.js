@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import queryString from 'query-string';
 
 let defaultStyle = {
   color: '#4d0025'
@@ -14,30 +15,6 @@ let fakeServerData = {
           {name: 'Beat It', duration: 1345}, 
           {name: 'Cannelloni Makaroni', duration: 1236},
           {name: 'Rosa helikopter', duration: 70000}
-        ]
-      },
-      {
-        name: 'Discover Weekly',
-        songs: [
-          {name: 'Beat It', duration: 1345}, 
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
-        ]
-      },
-      {
-        name: 'Another playlist - the best!',
-        songs: [
-          {name: 'Beat It', duration: 1345}, 
-          {name: 'Hallelujah', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
-        ]
-      },
-      {
-        name: 'Playlist!',
-        songs: [
-          {name: 'Beat It', duration: 1345}, 
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Hej Hej Monika', duration: 70000}
         ]
       }
     ]
@@ -108,16 +85,24 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({serverData: fakeServerData});
-    }, 1000);
+    let parsed = queryString.parse(window.location.search)
+    let accessToken = parsed.access_token;
+    fetch('https://api.spotify.com/v1/me', {
+      headers: {'Authorization': 'Bearer ' + accessToken}
+    }).then(response => response.json())
+    .then(data => this.setState({
+      user: {
+        name: data.display_name
+      }
+    }))
   }
+
   render() {
-    let playlistToRender = this.state.serverData.user ? this.state.serverData.user.playlists
-      .filter(playlist =>
+    let playlistToRender = this.state.serverData.user && this.state.serverData.playlist 
+    ? this.state.serverData.user.playlists.filter(playlist =>
         playlist.name.toLowerCase().includes(
-          this.state.filterString.toLowerCase())
-    ) : []
+          this.state.filterString.toLowerCase()))
+        : []
     return (
       <div className="App">
         {this.state.serverData.user ?
@@ -133,7 +118,8 @@ class App extends Component {
           {playlistToRender.map(playlist => 
             <Playlist playlist={playlist} />
           )}
-        </div> : <h1 style={defaultStyle}>Loading...</h1>
+        </div> : <button onClick  = {()=> window.location = 'https://playlist-backend.herokuapp.com/login'}
+        style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}> Sign in with Spotify</button>
         }
       </div>
     );
