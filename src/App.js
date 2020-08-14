@@ -98,17 +98,19 @@ class App extends Component {
   }
 
   render() {
-    let playlistToRender = this.state.serverData.user && this.state.serverData.playlist 
-    ? this.state.serverData.user.playlists.filter(playlist =>
-        playlist.name.toLowerCase().includes(
-          this.state.filterString.toLowerCase()))
+    let playlistToRender = 
+      this.state.user && 
+      this.state.playlists 
+        ? this.state.playlists.filter(playlist => 
+          playlist.name.toLowerCase().includes(
+            this.state.filterString.toLowerCase())) 
         : []
     return (
       <div className="App">
-        {this.state.serverData.user ?
+        {this.state.user ?
         <div>
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-            {this.state.serverData.user.name}'s Playlist
+            {this.state.user.name}'s Playlists
           </h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
@@ -118,8 +120,12 @@ class App extends Component {
           {playlistToRender.map(playlist => 
             <Playlist playlist={playlist} />
           )}
-        </div> : <button onClick  = {()=> window.location = 'https://playlist-backend.herokuapp.com/login'}
-        style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}> Sign in with Spotify</button>
+        </div> : <button onClick={() => {
+            window.location = window.location.href.includes('localhost') 
+              ? 'http://localhost:8888/login' 
+              : 'https://better-playlists-backend.herokuapp.com/login' }
+          }
+          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div>
     );
