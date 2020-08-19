@@ -85,8 +85,10 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    let parsed = queryString.parse(window.location.search)
+    let parsed = queryString.parse(window.location.search);
     let accessToken = parsed.access_token;
+    if (!accessToken)
+      return;
     fetch('https://api.spotify.com/v1/me', {
       headers: {'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
@@ -102,6 +104,7 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       playlists: data.items.map(item => {
+        console.log(data.limit)
         console.log(data.items)
         return {
           name: item.name,
@@ -135,15 +138,11 @@ class App extends Component {
           {playlistToRender.map(playlist => 
             <Playlist playlist={playlist} />
           )}
-        {/* </div> : <button onClick={() => {
+          </div> : <button onClick={() => {
             window.location = window.location.href.includes('localhost') 
               ? 'http://localhost:8888/login' 
               : 'https://playlist-backend.herokuapp.com/login' }
           }
-          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
-        }
-      </div> */}
-      </div> : <button onClick={() => window.location = 'https://playlist-backend.herokuapp.com/login' }
           style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div>
