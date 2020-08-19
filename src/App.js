@@ -143,8 +143,7 @@ class App extends Component {
           style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div> */}
-      </div> : <button onClick={() => {'https://playlist-backend.herokuapp.com/login' }
-          }
+      </div> : <button onClick={() => window.location = 'https://playlist-backend.herokuapp.com/login' }
           style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div>
