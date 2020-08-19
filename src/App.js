@@ -95,6 +95,20 @@ class App extends Component {
         name: data.display_name
       }
     }))
+
+    
+    fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: {'Authorization': 'Bearer ' + accessToken}
+    }).then(response => response.json())
+    .then(data => this.setState({
+      playlists: data.items.map(item => {
+        console.log(data.items)
+        return {
+          name: item.name,
+          songs: []
+        }
+    })
+    }))
   }
 
   render() {
@@ -110,7 +124,7 @@ class App extends Component {
         {this.state.user ?
         <div>
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-            {this.state.user.name}'s Playlists
+            {this.state.user.name}'s playlists
           </h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
