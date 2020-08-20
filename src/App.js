@@ -94,7 +94,9 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       user: {
-        name: data.display_name
+        name: data.display_name,
+        profilePicture: data.images[0]
+
       }
     }))
 
@@ -104,6 +106,7 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       playlists: data.items.map(item => {
+        data.limit = 50;
         console.log(data.limit)
         console.log(data.items)
         return {
@@ -129,6 +132,7 @@ class App extends Component {
         <div>
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
             {this.state.user.name}'s playlists
+            {this.state.user.images} style={{width: '10px'}}
           </h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
