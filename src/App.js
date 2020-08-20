@@ -93,13 +93,14 @@ class App extends Component {
       headers: {'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
     .then(data => this.setState({
-      user: {
-        name: data.display_name,
-        image: data.images[0]
-
-      }
+      user: data.items.map(item =>{
+        console.log(data.items)
+        return{
+            name: data.display_name
+          }
+      })
     }))
-
+  
     
     fetch('https://api.spotify.com/v1/me/playlists', {
       headers: {'Authorization': 'Bearer ' + accessToken}
@@ -107,8 +108,8 @@ class App extends Component {
     .then(data => this.setState({
       playlists: data.items.map(item => {
         //data.limit = 50;
-        console.log(data.limit)
-        console.log(data.items)
+        // console.log(data.limit)
+        // console.log(data.items)
         return {
           name: item.name,
           imageUrl: item.images[0].url, 
@@ -130,9 +131,9 @@ class App extends Component {
       <div className="App">
         {this.state.user ?
         <div>
-           <h1 style={{'width': '10px'}}>
+           {/* <h1 style={{'width': '10px'}}>
             {this.state.user.image} 
-          </h1>
+          </h1> */}
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
             {this.state.user.name}'s playlists
           </h1>
