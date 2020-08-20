@@ -130,9 +130,11 @@ class App extends Component {
       <div className="App">
         {this.state.user ?
         <div>
+           <h1 style={{'width': '10px'}}>
+            {this.state.user.image} 
+          </h1>
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
             {this.state.user.name}'s playlists
-            {this.state.user.image} style={{width: '10px'}}
           </h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
