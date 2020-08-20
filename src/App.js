@@ -95,7 +95,7 @@ class App extends Component {
     .then(data => this.setState({
       user: {
         name: data.display_name,
-        image: data.images[0].url
+        image: data.images[0].height, url, width
       }
     }))
 
@@ -138,6 +138,9 @@ class App extends Component {
           <h1>{this.state.user.image}</h1>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
+          <h3> style={{...defaultStyle}}
+            Search 
+          </h3>
           <Filter onTextChange={text => {
               this.setState({filterString: text})
             }}/>
