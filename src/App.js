@@ -95,7 +95,7 @@ class App extends Component {
     .then(data => this.setState({
       user: {
         name: data.display_name,
-        image: data.images[0].height
+        image: data.images[0].url
       }
     }))
 
