@@ -93,14 +93,12 @@ class App extends Component {
       headers: {'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
     .then(data => this.setState({
-      user: data.items.map(item =>{
-        console.log(data.items)
-        return{
-            name: data.display_name
-          }
-      })
+      user: {
+        name: data.display_name
+        // image: data.images[0]
+      }
     }))
-  
+
     
     fetch('https://api.spotify.com/v1/me/playlists', {
       headers: {'Authorization': 'Bearer ' + accessToken}
