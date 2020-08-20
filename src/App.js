@@ -94,8 +94,7 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       user: {
-        name: data.display_name,
-        image: data.images[0].url
+        name: data.display_name
       }
     }))
 
@@ -135,7 +134,7 @@ class App extends Component {
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
             {this.state.user.name}'s Playlists
           </h1>
-          <h1>{this.state.user.image}</h1>
+          {/* <h1>{this.state.user.image}</h1> */}
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
           <h3> style={{...defaultStyle}}
