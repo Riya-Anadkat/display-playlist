@@ -95,6 +95,7 @@ class App extends Component {
     .then(data => this.setState({
       user: {
         name: data.display_name
+        // image: data.images[0]
       }
     }))
 
@@ -132,14 +133,10 @@ class App extends Component {
             {this.state.user.image} 
           </h1> */}
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-            {this.state.user.name}'s Playlists
+            {this.state.user.name}'s playlists
           </h1>
-          {/* <h1>{this.state.user.image}</h1> */}
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
-          <h3> style={{...defaultStyle}}
-            Search 
-          </h3>
           <Filter onTextChange={text => {
               this.setState({filterString: text})
             }}/>
@@ -151,7 +148,7 @@ class App extends Component {
               ? 'http://localhost:8888/login' 
               : 'https://playlist-backend.herokuapp.com/login' }
           }
-          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify!</button>
+          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div>
     );
