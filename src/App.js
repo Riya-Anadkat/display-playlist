@@ -95,7 +95,7 @@ class App extends Component {
     .then(data => this.setState({
       user: {
         name: data.display_name,
-        image: data.images
+        image: data.images[0]
 
       }
     }))
@@ -106,7 +106,7 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       playlists: data.items.map(item => {
-        data.limit = 50;
+        //data.limit = 50;
         console.log(data.limit)
         console.log(data.items)
         return {
