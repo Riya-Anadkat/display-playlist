@@ -133,10 +133,10 @@ class App extends Component {
            {/* <h1 style={{'width': '10px'}}>
             {this.state.user.image} 
           </h1> */}
-          <h1 style={{...defaultStyle, 'font-size': '54px'}}>
+          <h1 style={{...defaultStyle, 'font-size': '54px', display: 'inline-block'}}>
             {this.state.user.name}'s playlists
           </h1>
-          <img src={this.state.user.profileImage} style={{width: '60px', height: '60px'}}/>
+          <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block'}}/>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
           <Filter onTextChange={text => {
