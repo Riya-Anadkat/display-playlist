@@ -139,15 +139,11 @@ class App extends Component {
             {this.state.user.name}'s Playlists   
           </h1>
           <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block', borderRadius: '50%'}}/>
-          <h3 style={{...defaultStyle, display: 'inline-block'}}>
-            Followers: {this.state.user.followers} 
+          
+          <h3 style={{...defaultStyle}}>
+            Followers: {this.state.user.followers} | Country: {this.state.user.country} | Subscription Level: {this.state.user.product} 
           </h3>
-          <h3 style={{...defaultStyle, display: 'inline-block'}}>
-            Country: {this.state.user.country} 
-          </h3>
-          <h3 style={{...defaultStyle, display: 'inline-block'}}>
-            Subscription Level:{this.state.user.product} 
-          </h3>
+          
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
           <Filter onTextChange={text => {
