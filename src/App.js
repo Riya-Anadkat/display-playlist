@@ -96,8 +96,9 @@ class App extends Component {
       user: {
         name: data.display_name,
         profileImage: data.images[0].url,
-        followers: data.followers.total
-        // image: data.images[0]
+        followers: data.followers.total,
+        country: data.country,
+        product: data.product
       }
     }))
 
@@ -135,11 +136,17 @@ class App extends Component {
             {this.state.user.image} 
           </h1> */}
           <h1 style={{...defaultStyle, 'font-size': '54px', display: 'inline-block'}}>
-            {this.state.user.name}'s playlists
+            {this.state.user.name}'s Playlists   
           </h1>
           <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block', borderRadius: '50%'}}/>
-          <h3 style={{...defaultStyle}}>
-            {this.state.user.followers} followers
+          <h3 style={{...defaultStyle, display: 'inline-block'}}>
+            Followers: {this.state.user.followers} 
+          </h3>
+          <h3 style={{...defaultStyle, display: 'inline-block'}}>
+            Country: {this.state.user.country} 
+          </h3>
+          <h3 style={{...defaultStyle, display: 'inline-block'}}>
+            Subscription Level:{this.state.user.product} 
           </h3>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
