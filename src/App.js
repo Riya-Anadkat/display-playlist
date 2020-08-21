@@ -95,7 +95,8 @@ class App extends Component {
     .then(data => this.setState({
       user: {
         name: data.display_name,
-        profileImage: data.images[0].url
+        profileImage: data.images[0].url,
+        followers: data.followers.total
         // image: data.images[0]
       }
     }))
@@ -136,7 +137,10 @@ class App extends Component {
           <h1 style={{...defaultStyle, 'font-size': '54px', display: 'inline-block'}}>
             {this.state.user.name}'s playlists
           </h1>
-          <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block'}}/>
+          <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block', borderRadius: '50%'}}/>
+          <h3 style={{...defaultStyle}}>
+            {this.state.user.followers} followers
+          </h3>
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
           <Filter onTextChange={text => {

@@ -1,9 +1,6 @@
 html, body {
   background-color: #f2c7dc;
 }
-.profileImage{
-  border-radius: '50%';
-}
 
 .App {
   text-align: center;
