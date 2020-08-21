@@ -94,7 +94,8 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       user: {
-        name: data.display_name
+        name: data.display_name,
+        profileImage: data.images[0]
         // image: data.images[0]
       }
     }))
@@ -105,9 +106,9 @@ class App extends Component {
     }).then(response => response.json())
     .then(data => this.setState({
       playlists: data.items.map(item => {
-        //data.limit = 50;
-        // console.log(data.limit)
-        // console.log(data.items)
+        data.limit = 50;
+        console.log(data.limit)
+        console.log(data.items)
         return {
           name: item.name,
           imageUrl: item.images[0].url, 
@@ -135,6 +136,7 @@ class App extends Component {
           <h1 style={{...defaultStyle, 'font-size': '54px'}}>
             {this.state.user.name}'s playlists
           </h1>
+          {this.state.user.profileImage}
           <PlaylistCounter playlists={playlistToRender}/>
           <HoursCounter playlists={playlistToRender}/>
           <Filter onTextChange={text => {
