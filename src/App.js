@@ -106,11 +106,28 @@ class App extends Component {
     fetch('https://api.spotify.com/v1/me/playlists', {
       headers: {'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
-    .then(data => this.setState({
-      playlists: data.items.map(item => {
-        data.limit = 50;
-        console.log(data.limit)
-        console.log(data.items)
+    .then(playlistData => {
+      let playlists = playlistDataItems
+      let trackDataPromises = playlists.map(playlist => {
+        let responsePromise = fetch(playlist.tracks.href, {
+          headers: {'Authorization': 'Bearer ' + accessToken}
+        })
+        let trackDataPromise = responsePromise
+          .then(response => response.json)
+        return trackDataPromise
+      })
+      let allTrackDatasPromises = 
+        Promise.all(trackDataPromises)
+      let playlistsPromise = allTrackDatasPromises.then(trackDatas => {
+        trackDatas.forEach((trackData, i) =>{
+          playlists[i].trackDatas = trackData.items.map(item => item.track)
+        })
+        return playlists
+      })
+      return playlistsPromise
+    })
+    .then(playlists => this.setState({
+      playlists: playlists.map(item => {
         return {
           name: item.name,
           imageUrl: item.images[0].url, 
@@ -135,10 +152,11 @@ class App extends Component {
            {/* <h1 style={{'width': '10px'}}>
             {this.state.user.image} 
           </h1> */}
+          <img src={this.state.user.profileImage} style={{width: '80px', height: '80px', display: 'inline-block', borderRadius: '50%'}}/>
           <h1 style={{...defaultStyle, 'font-size': '54px', display: 'inline-block'}}>
             {this.state.user.name}'s Playlists   
           </h1>
-          <img src={this.state.user.profileImage} style={{width: '60px', height: '60px', display: 'inline-block', borderRadius: '50%'}}/>
+         
           
           <h3 style={{...defaultStyle}}>
             Followers: {this.state.user.followers} | Country: {this.state.user.country} | Subscription Level: {this.state.user.product} 
