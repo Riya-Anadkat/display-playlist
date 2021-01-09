@@ -39,6 +39,12 @@ class HoursCounter extends Component {
     let totalDuration = allSongs.reduce((sum, eachSong) => {
       return sum + eachSong.duration
     }, 0)
+    let totalDurationHours = Math.round(totalDuration/60)
+    let isTooLow = totalDurationHours < 40
+    let hoursCounterStyle = {...counterStyle, 
+      color: isTooLow ? 'red' : 'white',
+      'font-weight': isTooLow ? 'bold' : 'normal',
+    }
     return (
       <div style={{...defaultStyle, width: "40%", display: 'inline-block'}}>
         <h2>{Math.round(totalDuration/3600)} hours</h2>
@@ -144,12 +150,15 @@ class App extends Component {
   }
   render() {
     let playlistToRender = 
-      this.state.user && 
-      this.state.playlists 
-        ? this.state.playlists.filter(playlist => 
-          playlist.name.toLowerCase().includes(
-            this.state.filterString.toLowerCase())) 
-        : []
+    this.state.user && 
+    this.state.playlists 
+      ? this.state.playlists.filter(playlist => {
+        let matchesPlaylist = playlist.name.toLowerCase().includes(
+          this.state.filterString.toLowerCase()) 
+        let matchesSong = playlist.songs.find(song => song.name.toLowerCase()
+          .includes(this.state.filterString.toLowerCase()))
+        return matchesPlaylist || matchesSong
+      }) : []
     return (
       <div className="App">
         {this.state.user ?
