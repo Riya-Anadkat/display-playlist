@@ -5,6 +5,13 @@ import queryString from 'query-string';
 let defaultStyle = {
   color: '#4d0025'
 };
+let counterStyle = {...defaultStyle, 
+  width: "40%", 
+  display: 'inline-block',
+  'margin-bottom': '20px',
+  'font-size': '20px',
+  'line-height': '30px'
+}
 let fakeServerData = {
   user: {
     name: 'Riya',
